@@ -1,0 +1,13 @@
+REGISTER myudfs.jar;
+rows = LOAD 'first_row' USING PigStorage(',') AS (leftd: int, col: int, rightd: int);
+rows = FOREACH rows GENERATE FLATTEN(myudfs.BreadthQueensN(27, leftd, col, rightd)) AS (leftd:int, col:int, rightd:int);
+rows = FOREACH rows GENERATE FLATTEN(myudfs.BreadthQueensN(27, leftd, col, rightd)) AS (leftd:int, col:int, rightd:int);
+rows = FOREACH rows GENERATE FLATTEN(myudfs.BreadthQueensN(27, leftd, col, rightd)) AS (leftd:int, col:int, rightd:int);
+EXPLAIN rows;
+rows = FOREACH rows GENERATE FLATTEN(myudfs.BreadthQueensN(27, leftd, col, rightd)) AS (leftd:int, col:int, rightd:int);
+rows = FOREACH rows GENERATE FLATTEN(myudfs.BreadthQueensN(27, leftd, col, rightd)) AS (leftd:int, col:int, rightd:int);
+rows = FOREACH rows GENERATE FLATTEN(myudfs.BreadthQueensN(27, leftd, col, rightd)) AS (leftd:int, col:int, rightd:int);
+STORE rows into 'boards';
+results = FOREACH rows GENERATE myudfs.DepthQueensN(27, leftd, col, rightd);
+EXPLAIN results;
+STORE results into 'results';

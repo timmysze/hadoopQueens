@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pushd myudfs 1>/dev/null;
+
+PIG="-classpath /usr/local/Cellar/pig/0.11.1/pig-0.11.1.jar"
+COMPILE=`javac $PIG *.java;`
+
+popd  1>/dev/null;
+
+if [ "$COMPILE" = "" ]; then
+   jar -cf myudfs.jar myudfs
+   java $PIG org.apache.pig.Main -x local script.pig
+fi
